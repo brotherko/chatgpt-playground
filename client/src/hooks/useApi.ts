@@ -17,7 +17,7 @@ export const useApi = (baseUrl: string) => {
     queryKey: ['conversations', sessionId],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${baseUrl}/api/chat/${sessionId}`
+        `${baseUrl}/chat/${sessionId}`
       );
       return data;
     },
@@ -25,7 +25,7 @@ export const useApi = (baseUrl: string) => {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: (message: string) => {
-      return axios.post(`${baseUrl}/api/chat/${sessionId}`, {
+      return axios.post(`${baseUrl}/chat/${sessionId}`, {
         message,
       });
     },

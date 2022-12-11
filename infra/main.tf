@@ -12,6 +12,18 @@ resource "digitalocean_app" "this" {
 
       http_port = 80
 
+      env {
+        key   = "OPENAI_EMAIL"
+        value = var.openai_email
+        type  = "SECRET"
+      }
+
+      env {
+        key   = "OPENAI_PASSWORD"
+        value = var.openai_password
+        type  = "SECRET"
+      }
+
       routes {
         path = "/api"
       }

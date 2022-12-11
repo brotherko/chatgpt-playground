@@ -17,8 +17,8 @@ resource "digitalocean_app" "this" {
       }
 
       github {
-        repo_clone_url = "brotherko/chatgpt-playground"
-        branch         = "main"
+        repo   = "brotherko/chatgpt-playground"
+        branch = "main"
       }
     }
 

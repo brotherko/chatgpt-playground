@@ -12,6 +12,15 @@ resource "digitalocean_app" "this" {
 
       http_port = 80
 
+      github {
+        repo   = "brotherko/chatgpt-playground"
+        branch = "main"
+      }
+
+      routes {
+        path = "/api"
+      }
+
       env {
         key   = "OPENAI_EMAIL"
         value = var.openai_email
@@ -24,13 +33,12 @@ resource "digitalocean_app" "this" {
         type  = "SECRET"
       }
 
-      routes {
-        path = "/api"
-      }
-
-      github {
-        repo   = "brotherko/chatgpt-playground"
-        branch = "main"
+      health_check {
+        http_path             = "/health"
+        initial_delay_seconds = 60
+        period_seconds        = 3600
+        timeout_seconds       = 60
+        failure_threshold     = 1
       }
     }
 

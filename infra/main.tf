@@ -26,6 +26,7 @@ resource "digitalocean_app" "this" {
       name          = "client"
       build_command = "npm run build"
       output_dir    = "build"
+      source_dir    = "/client"
 
       github {
         branch = "main"

@@ -1,5 +1,5 @@
 {
-  "name": "chatgpt-playground-client",
+  "name": "gptpg-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

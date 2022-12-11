@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "chatgpt-playground-server"
+name = "gptpg-server"
 version = "0.1.0"
 description = ""
 authors = ["Marty Ko <marty.ko@kadensacapital.com>"]
 readme = "README.md"
-packages = [{include = "chatgpt_playground_server"}]
+packages = [{include = "gptpg_server"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -14,7 +14,7 @@ flask-cors = "^3.0.10"
 asgiref = "^3.5.2"
 
 [tool.poetry.scripts]
-dev = "chatgpt_playground_server.main:start_dev"
+dev = "gptpg_server.main:start_dev"
 
 [build-system]
 requires = ["poetry-core"]

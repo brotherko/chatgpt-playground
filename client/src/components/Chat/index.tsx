@@ -20,7 +20,7 @@ export const Chat = () => {
   );
 
   return (
-    <div style={{ position: 'relative', height: '100vh' }}>
+    <div style={{ position: 'absolute', height: '100%', width: '100%' }}>
       <MainContainer>
         <ChatContainer>
           <ConversationHeader>

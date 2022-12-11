@@ -18,7 +18,6 @@ class ChatSession:
         self.__conversation_id: str = None
         self.__previous_convo_id: str = None
 
-
     @staticmethod
     def set_chat_handler(chat_handler):
         ChatSession.__chat_handler = chat_handler

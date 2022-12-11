@@ -1,4 +1,7 @@
 import time
+from os import environ
+
+from .singleton import Singleton
 
 from pychatgpt.classes import openai as OpenAI
 from pychatgpt.classes import chat as Chat
@@ -8,11 +11,11 @@ from pychatgpt.classes import exceptions as Exceptions
 import colorama
 from colorama import Fore
 
-class ChatHandler:
-    def __init__(self, email, password, proxies: str or dict = None):
-        self.email = email
-        self.password = password
-        self.proxies = proxies
+class ChatHandler(Singleton):
+    def __init__(self):
+        self.email=environ.get('OPENAI_EMAIL')
+        self.password=environ.get("OPENAI_PASSWORD")
+        self.proxies=environ.get("OPENAI_PROXY")
 
         self.__auth_access_token: str or None = None
         self.__auth_access_token_expiry: int or None = None

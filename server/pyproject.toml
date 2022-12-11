@@ -12,6 +12,13 @@ chatgptpy = "^1.0.1"
 flask = "^2.2.2"
 flask-cors = "^3.0.10"
 asgiref = "^3.5.2"
+flask-sqlalchemy = "^3.0.2"
+psycopg2-binary = {version = "^2.9.3", source = "test-pypi"}
+
+[[tool.poetry.source]]
+name = "test-pypi"
+url = "https://test.pypi.org/simple"
+secondary = true
 
 [tool.poetry.scripts]
 dev = "gptpg_server.main:start_dev"

@@ -1,33 +1,49 @@
 import time
 import logging
 
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+from asgiref.wsgi import WsgiToAsgi
+
 from os import environ
 
-from asgiref.wsgi import WsgiToAsgi
-from flask import Flask, request, jsonify
-from flask_cors import CORS, cross_origin
-from .classes.handler import ChatHandler
 from .classes.session import ChatSession
+from .classes.handler import ChatHandler
 from .classes.session_manager import ChatSessionManager
 
 logging.basicConfig(level=logging.DEBUG)
 
+session_manager = ChatSessionManager()
+ChatSession.set_chat_handler(ChatHandler.getInstance())
+
 app = Flask(__name__)
-CORS(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get("DB_CONNECTION_STRING")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+cors = CORS(app)
 asgi_app = WsgiToAsgi(app)
 
-session_manager = ChatSessionManager()
 
-chat_handler = ChatHandler(
-    email=environ.get('OPENAI_EMAIL'),
-    password=environ.get("OPENAI_PASSWORD"),
-    proxies=environ.get("OPENAI_PROXY"))
+class Session(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    conversation_id = db.Column(db.String(100))
+    created_at = db.Column(db.DateTime)
 
-ChatSession.set_chat_handler(chat_handler)
+class Conversation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.Integer, db.ForeignKey("session.id"))
+    sender = db.Column(db.String(10))
+    message = db.Column(db.String(5000))
+    created_at = db.Column(db.DateTime)
+
+with app.app_context():
+    db.create_all()
 
 @app.get("/health")
 def health():
-    isHealthy = chat_handler.healthcheck()
+    isHealthy = ChatHandler.getInstance().healthcheck()
     if (not isHealthy):
         return "unhealthy", 500
     return "healthy", 200

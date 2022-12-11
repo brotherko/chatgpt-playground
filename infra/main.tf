@@ -54,7 +54,6 @@ resource "digitalocean_app" "this" {
       name    = "db"
       engine  = "PG"
       db_name = "db"
-      db_user = "user"
     }
   }
 }

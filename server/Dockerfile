@@ -18,5 +18,5 @@ WORKDIR /app
 COPY --from=requirements-stage /tmp/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir --upgrade -r ./requirements.txt
 COPY chatgpt_playground_server ./chatgpt_playground_server
-CMD ["uvicorn", "chatgpt_playground_server.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "chatgpt_playground_server.main:asgi_app", "--host", "0.0.0.0", "--port", "80"]
 

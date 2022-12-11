@@ -3,6 +3,7 @@ import logging
 
 from os import environ
 
+from asgiref.wsgi import WsgiToAsgi
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from .classes.handler import ChatHandler
@@ -13,6 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 CORS(app)
+asgi_app = WsgiToAsgi(app)
 
 session_manager = ChatSessionManager()
 

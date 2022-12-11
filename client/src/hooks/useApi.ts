@@ -6,7 +6,13 @@ import { useEffect } from 'react';
 
 export const useApi = (baseUrl: string) => {
   const queryClient = useQueryClient();
-  const [sessionId, setSessionId] = useCookie('session_id', nanoid());
+  const [sessionId, setSessionId] = useCookie('session_id');
+
+  useEffect(() => {
+    if (!sessionId) {
+      reset()
+    }
+  }, [sessionId, setSessionId])
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['conversations'] });
@@ -21,6 +27,7 @@ export const useApi = (baseUrl: string) => {
       );
       return data;
     },
+    refetchInterval: 30 * 1000
   });
 
   const { mutate, isLoading } = useMutation({
@@ -48,9 +55,6 @@ export const useApi = (baseUrl: string) => {
 
 
   const reset = () => {
-    if (isLoading) {
-      console.error('Can not reset chat while interacting with server')
-    }
     setSessionId(nanoid())
   };
 

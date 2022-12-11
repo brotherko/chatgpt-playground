@@ -14,7 +14,8 @@ import { useApi } from '../../hooks/useApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
-const MessageLoading = () => <Message
+const MessageLoading = () => (
+  <Message
   model={{
     direction: 'incoming',
     position: 'single',
@@ -22,6 +23,7 @@ const MessageLoading = () => <Message
     payload: <TypingIndicator style={{ position: 'relative' }} />,
   }}
 />
+);
 
 export const Chat = () => {
   const { data, post, loading, reset } = useApi(
@@ -57,7 +59,8 @@ export const Chat = () => {
           </ConversationHeader>
           <MessageList>
             <MessageSeparator as="h2">
-              ⚡ Conversations are logged anonymously for analytical purpose ⚡
+              {/* ⚡ Conversations are logged anonymously for analytical purpose ⚡ */}
+              ⚡ Your messages are directly proxied to the OpenAI Server. We don't store any of your conversation in our server ⚡
             </MessageSeparator>
             {messages}
             {loading && <MessageLoading />}
@@ -66,6 +69,7 @@ export const Chat = () => {
             placeholder="Type message here"
             onSend={(v) => post(v)}
             attachButton={false}
+            onPaste={(e) => e.preventDefault()}
           />
         </ChatContainer>
       </MainContainer>

@@ -57,7 +57,7 @@ export const Chat = () => {
           </ConversationHeader>
           <MessageList>
             <MessageSeparator as="h2">
-              ⚡ Conversations are collected for analytical purpose anonymously ⚡
+              ⚡ Conversations are logged anonymously for analytical purpose ⚡
             </MessageSeparator>
             {messages}
             {loading && <MessageLoading />}

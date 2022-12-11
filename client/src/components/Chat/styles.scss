@@ -1,0 +1,19 @@
+@use '@chatscope/chat-ui-kit-styles/themes/default/main.scss' with (
+  $color-primary: #4D38A2,
+  $color-primary-dark: #4D38A2,
+  $default-bg-color: #130F1C,
+  $color-text: #FFF,
+  $color-text-disabled: rgba(255, 255, 255, 0.742),
+
+  $conversation-header-color: #FFF,
+  $conversation-header-font-size: 1.5em,
+  $conversation-header-bg-color: transparent,
+
+  $message-content-bg-color: #19182A,
+
+  $message-separator-color: rgba(255, 255, 255, 0.742),
+
+  $message-list-typing-indicator-bg-color: transparent,
+  $typing-indicator-text-color: #FFF,
+  $message-input-content-editor-wrapper-bg-color: transparent
+)

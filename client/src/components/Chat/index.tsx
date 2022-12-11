@@ -14,17 +14,39 @@ import { useApi } from '../../hooks/useApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
+const MessageLoading = () => <Message
+  model={{
+    direction: 'incoming',
+    position: 'single',
+    type: 'custom',
+    payload: <TypingIndicator style={{ position: 'relative' }} />,
+  }}
+/>
+
 export const Chat = () => {
   const { data, post, loading, reset } = useApi(
     process.env.REACT_APP_API_BASE_URL as string
   );
+
+  const messages =
+    data &&
+    data.map((conversation: any, i: any) => (
+      <Message
+        key={i}
+        model={{
+          message: conversation.message,
+          direction: conversation.sender === 'human' ? 'outgoing' : 'incoming',
+          position: 'single',
+        }}
+      />
+    ));
 
   return (
     <div style={{ position: 'absolute', height: '100%', width: '100%' }}>
       <MainContainer>
         <ChatContainer>
           <ConversationHeader>
-            <ConversationHeader.Content userName="ChatGPT Playground" />
+            <ConversationHeader.Content userName="ChatGPT" />
             <ConversationHeader.Actions>
               <Button
                 disabled={loading}
@@ -33,33 +55,14 @@ export const Chat = () => {
               />
             </ConversationHeader.Actions>
           </ConversationHeader>
-          <MessageList
-            typingIndicator={
-              loading && <TypingIndicator content="ChatGPT is typing" />
-            }
-          >
+          <MessageList>
             <MessageSeparator as="h2">
-              ⚡ Chat history will be gone after refresh
+              ⚡ Conversations are collected for analytical purpose anonymously ⚡
             </MessageSeparator>
-            {data &&
-              data.map((conversation: any, i: any) => (
-                <Message
-                  key={i}
-                  model={{
-                    message: conversation.message,
-                    direction:
-                      conversation.sender === 'human' ? 'outgoing' : 'incoming',
-                    position: 'single',
-                  }}
-                />
-              ))}
+            {messages}
+            {loading && <MessageLoading />}
           </MessageList>
           <MessageInput
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              width: '100%',
-            }}
             placeholder="Type message here"
             onSend={(v) => post(v)}
             attachButton={false}

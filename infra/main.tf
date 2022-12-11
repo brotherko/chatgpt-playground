@@ -49,5 +49,12 @@ resource "digitalocean_app" "this" {
         path = "/"
       }
     }
+
+    database {
+      name    = "db"
+      engine  = "PG"
+      db_name = "db"
+      db_user = "user"
+    }
   }
 }

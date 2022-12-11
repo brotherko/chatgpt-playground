@@ -25,12 +25,12 @@ chat_handler = ChatHandler(
 
 ChatSession.set_chat_handler(chat_handler)
 
-@app.get("/api/chat/<session_id>")
+@app.get("/chat/<session_id>")
 def get_chat(session_id):
     session = session_manager.get(session_id)
     return jsonify(session.get_conversations())
 
-@app.post("/api/chat/<session_id>")
+@app.post("/chat/<session_id>")
 def post_chat(session_id):
     message = request.get_json().get('message')
     session = session_manager.get(session_id)

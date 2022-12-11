@@ -25,6 +25,13 @@ chat_handler = ChatHandler(
 
 ChatSession.set_chat_handler(chat_handler)
 
+@app.get("/health")
+def health():
+    isHealthy = chat_handler.healthcheck()
+    if (not isHealthy):
+        return "unhealthy", 500
+    return "healthy", 200
+
 @app.get("/chat/<session_id>")
 def get_chat(session_id):
     session = session_manager.get(session_id)

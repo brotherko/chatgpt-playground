@@ -60,6 +60,13 @@ class ChatHandler:
         # If created, then return True
         return True
     
+    def healthcheck(self):
+        try:
+            self.ask("hello!", None, None)
+            return True
+        except:
+            return False
+
     def ask(self, prompt: str, conversation_id: str, previous_convo_id: str) -> str or None:
         if prompt is None:
             print(f"{Fore.RED}>> Enter a prompt.")

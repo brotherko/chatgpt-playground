@@ -1,3 +1,8 @@
+variable "enabled" {
+  type    = bool
+  default = true
+}
+
 variable "openai_email" {
   type      = string
   sensitive = true

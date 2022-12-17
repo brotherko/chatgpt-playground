@@ -1,4 +1,6 @@
 resource "digitalocean_app" "this" {
+  count = var.enabled ? 1 : 0
+
   spec {
     name   = "gptpg"
     region = "sgp"
@@ -33,13 +35,13 @@ resource "digitalocean_app" "this" {
         type  = "SECRET"
       }
 
-      health_check {
-        http_path             = "/health"
-        initial_delay_seconds = 60
-        period_seconds        = 3600
-        timeout_seconds       = 60
-        failure_threshold     = 1
-      }
+      #health_check {
+      #  http_path             = "/health"
+      #  initial_delay_seconds = 60
+      #  period_seconds        = 3600
+      #  timeout_seconds       = 60
+      #  failure_threshold     = 1
+      #}
     }
 
     static_site {

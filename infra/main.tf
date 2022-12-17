@@ -61,3 +61,19 @@ resource "digitalocean_app" "this" {
     }
   }
 }
+
+resource "digitalocean_project" "this" {
+  name        = "gptpg"
+  description = "ChatGPT Playground"
+  purpose     = "Web Application"
+  environment = "Production"
+}
+
+resource "digitalocean_project_resources" "this" {
+  count = var.enabled ? 1 : 0
+
+  project = digitalocean_project.this.id
+  resources = [
+    digitalocean_app.this[0].urn
+  ]
+}
